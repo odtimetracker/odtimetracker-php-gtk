@@ -1,5 +1,5 @@
 *.sublime-*
 composer.lock
+composer.phar
 vendor
-
-
+/nbproject/private/

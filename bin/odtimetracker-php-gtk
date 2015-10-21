@@ -3,9 +3,9 @@
 /**
  * odtimetracker-php-gtk
  *
+ * @license Mozilla Public License 2.0 https://www.mozilla.org/MPL/2.0/
  * @author Ondřej Doněk, <ondrejd@gmail.com>
- * @license 
- * @link
+ * @link https://github.com/odTimeTracker/odtimetracker-php-lib
  */
 
 // Print header
@@ -26,6 +26,5 @@ if (!file_exists($autoload)) {
 require_once $autoload;
 
 // Execute odTimeTracker
-new \odtimetracker\gtk\MainWindow();
-\Gtk::main();
+\odTimeTracker\Gtk\Application::execute();
 
