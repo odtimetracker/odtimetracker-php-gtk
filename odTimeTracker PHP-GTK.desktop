@@ -1,0 +1,13 @@
+# CAUTION! This is just a development version so paths are incorrect!
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=odTimeTracker PHP-GTK
+Comment=odTimeTracker Client written using PHP-GTK.
+Exec="/home/ondrejd/GitHub/odtimetracker-php-gtk/bin/odtimetracker-php-gtk"
+Icon=/home/ondrejd/GitHub/odtimetracker-php-gtk/icon48.png
+Categories=Application;Productivity;Office
+Version=0.1
+Type=Application
+Terminal=0
+
