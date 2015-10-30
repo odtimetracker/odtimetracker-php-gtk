@@ -1,0 +1,33 @@
+{
+    "name": "ondrejd/odtimetracker-php-gtk",
+    "description": "odTimeTracker implemented with using PHP-GTK.",
+    "homepage": "https://github.com/odTimeTracker/odtimetracker-php-gtk",
+    "type": "library",
+    "license": "MPL-2.0",
+    "keywords": ["web service", "tools", "php-gtk"],
+    "authors": [
+        {
+            "name": "Ondřej Doněk",
+            "email": "ondrejd@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "odTimeTracker\\Gtk\\": "src/"
+        },
+        "classmap": [
+            "./"
+        ]
+    },
+    "require": {
+        "php": ">=5.3",
+        "ext-date": "*",
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
+        "ext-cairo": "*",
+        "ext-php-gtk": "*",
+        "odtimetracker/odtimetracker-php-lib": "dev-master"
+    }
+}

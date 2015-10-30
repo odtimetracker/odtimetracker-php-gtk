@@ -1,0 +1,30 @@
+#!/usr/bin/php
+<?php
+/**
+ * odtimetracker-php-gtk
+ *
+ * @license Mozilla Public License 2.0 https://www.mozilla.org/MPL/2.0/
+ * @author Ondřej Doněk, <ondrejd@gmail.com>
+ * @link https://github.com/odTimeTracker/odtimetracker-php-lib
+ */
+
+// Print header
+echo 'odTimeTracker PHP-GTK'.PHP_EOL.PHP_EOL;
+
+// Find `vendor/autoload.php` file
+$autoload = dirname(__FILE__).'/vendor/autoload.php';
+if (!file_exists($autoload)) {
+	$autoload = dirname(__DIR__).'/vendor/autoload.php';
+}
+
+if (!file_exists($autoload)) {
+	echo 'Unable to find `vendor/autoload.php`!'.PHP_EOL;
+	echo 'Probably you should run `composer install` in the project folder.'.PHP_EOL;
+	die (1);
+}
+
+require_once $autoload;
+
+// Execute odTimeTracker
+\odTimeTracker\Gtk\Application::execute();
+
