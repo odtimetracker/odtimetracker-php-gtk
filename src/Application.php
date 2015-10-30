@@ -23,6 +23,11 @@ class Application extends \GtkWindow {
   const CONFIGURATION_FILE = 'conf.ini';
 
   /**
+   * @const string Application's version.
+   */
+  const VERSION = '0.1.0';
+
+  /**
    * @var Application $instance
    */
   protected static $instance;

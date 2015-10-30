@@ -9,6 +9,8 @@
 
 namespace odTimeTracker\Gtk\Ui;
 
+use \odTimeTracker\Gtk\Application;
+
 /**
  * Main window.
  *
@@ -37,8 +39,8 @@ class MainWindow extends \GtkWindow {
    * @return void
    */
   protected function setupWindow() {
-    $this->set_title('odTimeTracker');
-    $this->set_size_request(480, 320);
+    $this->set_title('odTimeTracker '.Application::VERSION);
+    $this->set_size_request(780, 640);
     //$this->set_resizable(false);
     // Show on all workspaces
     //$this->stick();
