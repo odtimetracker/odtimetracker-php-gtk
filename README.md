@@ -6,6 +6,7 @@
 
 odTimeTracker client application written using [PHP-GTK](http://gtk.php.net/).
 
+
 ## Usage
 
 Currently you need to clone this repository and run it from the console or customized _.desktop_ file.
@@ -35,3 +36,22 @@ Or you can update `odTimeTracker PHP-GTK.desktop` file and use it as a short-cut
 Here is how it looks:
 
 ![The very first version](screenshots/screen-1.png?raw=true "The very first version")
+
+
+## Changelog/ToDo
+
+### ~1.0
+* [ ] starting/stopping activities
+* [ ] insert/remove/update projects
+* [ ] highlight currently running activity in `\odTimeTracker\Gtk\Ui\ProjectsTreeview.php`
+* [ ] refresh UI:
+  * [ ] remove top panel and replace it by toolbar
+  * [ ] enable refreshing dataviews by user request (via some button)
+  * [ ] double-clicks on dataviews should open edit form
+* [ ] __odTimeTracker PHP-GTK__ should supports these data sources:
+  * [ ] SQLite/MySQL databases
+  * [ ] remote datasource connected via JSON-RPC (`odtimetracker/http-json-rpc`)
+
+### 0.1.0
+* Initial version
+* Sources placed on [GitHub](https://github.com/odtimetracker/odtimetracker-php-gtk)
