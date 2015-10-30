@@ -8,4 +8,4 @@ odTimeTracker [PHP-GTK]() application.
 
 Here is how it looks:
 
-![The very first version](screenshots/screen-01.png?raw=true "The very first version")
+![The very first version](screenshots/screen-1.png?raw=true "The very first version")
