@@ -35,7 +35,7 @@ Or you can update `odTimeTracker PHP-GTK.desktop` file and use it as a short-cut
 
 Here is how it looks:
 
-![The very first version](screenshots/screen-1.png?raw=true "The very first version")
+![odTimeTracker PHP-GTK 0.2.0](screenshots/screen-02.png?raw=true "odTimeTracker PHP-GTK 0.2.0")
 
 
 ## Changelog/ToDo
@@ -53,7 +53,10 @@ Here is how it looks:
   * [ ] remote datasource connected via JSON-RPC (`odtimetracker/http-json-rpc`)
 
 ### 0.2.0
-* [x] highlight currently running activity in `\odTimeTracker\Gtk\Ui\ActivitiesTreeview`
+* [ ] updated activities treeview:
+  * [x] highlight currently running activity
+  * [x] added tooltip with activity details
+* [x] removed start/stop area
 
 ### 0.1.0
 * Initial version
