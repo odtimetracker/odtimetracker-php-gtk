@@ -42,7 +42,7 @@ Here is how it looks:
 
 ### ~1.0
 * [ ] starting/stopping activities
-* [ ] insert/remove/update projects
+* [~] insert/remove/update projects
 * [ ] add pagination to `\odTimeTracker\Gtk\Ui\ActivitiesTreeview`
 * [ ] refresh UI:
   * [ ] remove top panel and replace it by toolbar
@@ -51,12 +51,16 @@ Here is how it looks:
 * [ ] __odTimeTracker PHP-GTK__ should supports these data sources:
   * [ ] SQLite/MySQL databases
   * [ ] remote datasource connected via JSON-RPC (`odtimetracker/http-json-rpc`)
+* [ ] distribute this application using [PHAR](http://php.net/manual/en/book.phar.php) archive
+* [ ] include _CLI_ interface (merge and then remove `odtimetracker\odtimetracker-php-cli`)
 
 ### 0.2.0
 * [ ] updated activities treeview:
   * [x] highlight currently running activity
   * [x] added tooltip with activity details
 * [x] removed start/stop area
+* [x] added dialog for adding/editing projects
+* [x] projects are editable after selecting them by double-click on projects treeview
 
 ### 0.1.0
 * Initial version
