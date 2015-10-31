@@ -42,7 +42,7 @@ Here is how it looks:
 
 ### ~1.0
 * [ ] starting/stopping activities
-* [~] insert/remove/update projects
+* [ ] insert/remove/update projects
 * [ ] add pagination to `\odTimeTracker\Gtk\Ui\ActivitiesTreeview`
 * [ ] refresh UI:
   * [ ] remove top panel and replace it by toolbar
