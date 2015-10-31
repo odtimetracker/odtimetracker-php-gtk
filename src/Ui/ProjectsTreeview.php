@@ -274,20 +274,4 @@ class ProjectsTreeview {
     $model->set($iter, 1, $new_project->getName());
     $model->set($iter, 2, $new_project->getDescription());
   } // end onViewButtonpress($widget, $event, $view)
-
-  /**
-   * Shows edit project dialog.
-   *
-   * @param ProjectEntity $project
-   * @return ProjectEntity|null
-   */
-  protected function prompt($project) {
-    $prompt = new ProjectDialog($project);
-
-    if ($prompt->getStatus() !== ProjectDialog::STATUS_SUBMITTED) {
-      return;
-    }
-
-    return $prompt->getProject();
-  } // end prompt($fields)
 } // End ProjectsTreeview
