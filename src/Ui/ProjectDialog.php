@@ -10,30 +10,14 @@
 namespace odTimeTracker\Gtk\Ui;
 
 use \odTimeTracker\Model\ProjectEntity;
+use \odTimeTracker\Gtk\Ui\CommonDialog;
 
 /**
  * Activity dialog.
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-class ProjectDialog {
-  const MODE_ADD = 'add';
-  const MODE_EDIT = 'edit';
-
-  const STATUS_CANCELLED = 'cancel';
-  const STATUS_INPROCESS = 'inprocess';
-  const STATUS_SUBMITTED = 'submit';
-
-  /**
-   * @var string $mode
-   */
-  protected $mode = self::MODE_ADD;
-
-  /**
-   * @var string $status
-   */
-  protected $status = self::STATUS_INPROCESS;
-
+class ProjectDialog extends CommonDialog {
   /**
    * @var ProjectEntity $project
    */
@@ -98,15 +82,6 @@ class ProjectDialog {
   public function getProject() {
     return $this->project;
   } // end getProject()
-
-  /**
-   * Retrieve result status.
-   * 
-   * @return string
-   */
-  public function getStatus() {
-    return $this->status;
-  } // end getStatus()
 
   /**
    * @param \GtkTable $table
