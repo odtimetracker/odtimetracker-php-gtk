@@ -64,15 +64,14 @@ class ProjectDialog extends CommonDialog {
     $align_submit = new \GtkAlignment(0, 0, 0, 0);
     $align_submit->add($button_submit);
     $buttons_row->pack_start($align_submit);
-    
-    $row = 4;//count($fields)
-    $table->attach($buttons_row, 1, 2, $row, $row + 1, \Gtk::FILL, \Gtk::SHRINK);
+
+    $table->attach($buttons_row, 1, 2, 4, 5, \Gtk::FILL, \Gtk::SHRINK);
 
     $this->dialog = $dialog;
     $dialog->show_all();
     $dialog->run();
     $dialog->destroy();
-  } // end __construct($fields)
+  } // end __construct($project = null)
 
   /**
    * Retrieve project.
