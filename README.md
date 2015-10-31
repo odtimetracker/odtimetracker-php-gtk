@@ -1,10 +1,11 @@
-# odTimeTracker Client written using PHP-GTK
+# odTimeTracker PHP-GTK
 
 [![License](https://img.shields.io/badge/license-MPL-blue.svg)](https://www.mozilla.org/MPL/2.0/)
 
 > __NOTE__: This application is in early development stage so is not usable yet!
 
 odTimeTracker client application written using [PHP-GTK](http://gtk.php.net/).
+
 
 ## Usage
 
@@ -34,4 +35,33 @@ Or you can update `odTimeTracker PHP-GTK.desktop` file and use it as a short-cut
 
 Here is how it looks:
 
-![The very first version](screenshots/screen-1.png?raw=true "The very first version")
+![odTimeTracker PHP-GTK 0.2.0](screenshots/screen-02.png?raw=true "odTimeTracker PHP-GTK 0.2.0")
+
+
+## Changelog/ToDo
+
+### ~1.0
+* [ ] starting/stopping activities
+* [ ] insert/remove/update projects
+* [ ] add pagination to `\odTimeTracker\Gtk\Ui\ActivitiesTreeview`
+* [ ] refresh UI:
+  * [ ] remove top panel and replace it by toolbar
+  * [ ] enable refreshing dataviews by user request (via some button)
+  * [ ] double-clicks on dataviews should open edit form
+* [ ] __odTimeTracker PHP-GTK__ should supports these data sources:
+  * [ ] SQLite/MySQL databases
+  * [ ] remote datasource connected via JSON-RPC (`odtimetracker/http-json-rpc`)
+* [ ] distribute this application using [PHAR](http://php.net/manual/en/book.phar.php) archive
+* [ ] include _CLI_ interface (merge and then remove `odtimetracker\odtimetracker-php-cli`)
+
+### 0.2.0
+* [ ] updated activities treeview:
+  * [x] highlight currently running activity
+  * [x] added tooltip with activity details
+* [x] removed start/stop area
+* [x] added dialog for adding/editing projects
+* [x] projects are editable after selecting them by double-click on projects treeview
+
+### 0.1.0
+* Initial version
+* Sources placed on [GitHub](https://github.com/odtimetracker/odtimetracker-php-gtk)
