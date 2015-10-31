@@ -9,6 +9,12 @@
 
 namespace odTimeTracker\Gtk\Ui;
 
+use \odTimeTracker\Model\ActivityEntity;
+use \odTimeTracker\Model\ActivityMapper;
+
+use \odTimeTracker\Gtk\Application;
+use \odTimeTracker\Gtk\Ui\ActivityDialog;
+
 /**
  * Activities treeview.
  *
@@ -16,8 +22,7 @@ namespace odTimeTracker\Gtk\Ui;
  */
 class ActivitiesTreeview {
   /**
-   * Cached data (activities) used in the current treeview's model. Keys
-   * correspond to IDs of activities.
+   * Cached data used in the current treeview's model. Keys are ID of items.
    * @var array $cache
    */
   protected $cache;
@@ -33,6 +38,11 @@ class ActivitiesTreeview {
   protected $parent;
 
   /**
+   * @var ActivityMapper $mapper
+   */
+  protected $mapper;
+
+  /**
    * Constructor.
    *
    * @param \GtkBox $parent
@@ -40,6 +50,8 @@ class ActivitiesTreeview {
    */
   public function __construct($parent) {
     $this->parent = $parent;
+    $this->mapper = new ActivityMapper(Application::getinstance()->getPdo());
+
     $this->setup();
     $this->update();
   } // end __construct($parent)
@@ -47,7 +59,7 @@ class ActivitiesTreeview {
   /**
    * Setup treeview.
    *
-   * @return $void
+   * @return void
    */
   protected function setup() {
     // Set up a scroll window
@@ -106,6 +118,9 @@ class ActivitiesTreeview {
     // set-up tooltip
     $view->set_property('has-tooltip', true);
     $view->connect('query-tooltip', array($this, 'onTooltip'));
+
+    // register 'button-press-event' on the treeview to check for double-click
+    $view->connect('button-press-event', array($this, 'onViewButtonpress'), $view);
   } // end setup()
 
   /**
@@ -141,9 +156,7 @@ class ActivitiesTreeview {
    * @return array
    */
   protected function loadData() {
-    $mapper = new \odTimeTracker\Model\ActivityMapper(
-      \odTimeTracker\Gtk\Application::getinstance()->getPdo()
-    );
+    $mapper = new ActivityMapper(Application::getinstance()->getPdo());
 
     return $mapper->selectAll();
   } // end loadData()
@@ -205,15 +218,15 @@ class ActivitiesTreeview {
   /**
    * Handler for `query-tooltip` event.
    *
-   * @param \GtkTreeView $widget
+   * @param \GtkTreeView $view
    * @param integer $x
    * @param integer $y
    * @param mixed $keyboard_mode
    * @param \GtkTooltip $tooltip
-   * @return void
+   * @return boolean
    */
-  public function onTooltip($widget, $x, $y, $keyboard_mode, $tooltip) {
-    $path = $widget->get_path_at_pos($x, $y);
+  public function onTooltip($view, $x, $y, $keyboard_mode, $tooltip) {
+    $path = $view->get_path_at_pos($x, $y);
     if (is_null($path)) {
       return false;
     }
@@ -221,12 +234,16 @@ class ActivitiesTreeview {
     $col_title = $path[1]->get_title();
     $path2 = $path[0][0] - 1;
 
-    $model = $widget->get_model();
+    if ($path2 < 0) {
+      return false;
+    }
+
+    $model = $view->get_model();
     $iter = $model->get_iter($path[0][0]);
     $activity_id = $model->get_value($iter, 0);
     $activity = $this->cache[$activity_id];
 
-    if ($path2 < 0) {
+    if (!($activity instanceof \odTimeTracker\Model\ActivityEntity)) {
       return false;
     }
 
@@ -242,9 +259,47 @@ class ActivitiesTreeview {
       $html .= PHP_EOL.PHP_EOL.strip_tags($activity->getDescription());
     }
 
-    $widget->set_tooltip_cell($tooltip, $path2, $path[1], null);
+    $view->set_tooltip_cell($tooltip, $path2, $path[1], null);
     $tooltip->set_markup($html);
 
     return true;
-  } // end onTooltip($widget, $x, $y, $keybord_mode, $tooltip)
+  } // end onTooltip($view, $x, $y, $keybord_mode, $tooltip)
+
+  /**
+   * @param \GtkTreeView $widget
+   * @param \GdkEvent $event
+   * @param \GtkTreeView $view
+   * @return void
+   */
+  public function onViewButtonpress($widget, $event, $view) {
+    // We capture only mouse double-click
+    if ($event->type != \Gdk::_2BUTTON_PRESS) {
+      return;
+    }
+
+    $selection = $view->get_selection();
+    list($model, $iter) = $selection->get_selected();
+
+    $activity_id = $model->get_value($iter, 0);
+    $activity = $this->cache[$activity_id];
+
+    $prompt = new ActivityDialog($activity);
+    if ($prompt->getStatus() !== ActivityDialog::STATUS_SUBMITTED) {
+      return;
+    }
+
+    $new_activity = $prompt->getActivity();
+    if (!($new_activity instanceof ActivityEntity)) {
+      return;
+    }
+
+    // Update project in database
+    $this->mapper->update($new_activity);
+
+    // Update treeview
+    $model->set($iter, 0, $new_activity->getActivityId());
+    // TODO Column `ProjectName`!
+    $model->set($iter, 2, $new_activity->getName());
+    // TODO Column `Duration`!
+  } // end onViewButtonpress($widget, $event, $view)
 } // End ActivitiesTreeview
