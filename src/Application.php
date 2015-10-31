@@ -25,7 +25,7 @@ class Application extends \GtkWindow {
   /**
    * @const string Application's version.
    */
-  const VERSION = '0.1.0';
+  const VERSION = '0.2.0';
 
   /**
    * @var Application $instance

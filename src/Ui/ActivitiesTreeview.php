@@ -16,6 +16,13 @@ namespace odTimeTracker\Gtk\Ui;
  */
 class ActivitiesTreeview {
   /**
+   * Cached data (activities) used in the current treeview's model. Keys
+   * correspond to IDs of activities.
+   * @var array $cache
+   */
+  protected $cache;
+
+  /**
    * @var \GtkListStore $model
    */
   protected $model;
@@ -107,9 +114,13 @@ class ActivitiesTreeview {
     echo "update treeview: ".date('H:i:s')."\n";
     $activities = $this->loadData();
 
+    $this->cache = array();
     $this->model->clear();
 
     foreach ($activities as $activity) {
+      // Update cache
+      $this->cache[$activity->getId()] = $activity;
+      // Update model
       $this->model->append(array(
         $activity->getId(),
         $activity->getProject()->getName(),
@@ -150,6 +161,19 @@ class ActivitiesTreeview {
 
     $val = $model->get_value($iter, $colNum);
     $cell->set_property('text', $val);
+
+    $activity_id = $model->get_value($iter, 0);
+    $is_running = false;
+
+    if (array_key_exists($activity_id, $this->cache)) {
+      $is_running = $this->cache[$activity_id]->isRunning();
+    }
+
+    if ($is_running === true) {
+      $cell->set_property('font',  'Ubuntu Sans Bold 10');
+    } else {
+      $cell->set_property('font', 'Ubuntu Sans 10');
+    }
 
     $row_color = ($row % 2 == 1) ? '#dddddd' : '#ffffff';
     $cell->set_property('cell-background', $row_color);

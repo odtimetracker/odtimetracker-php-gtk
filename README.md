@@ -1,6 +1,6 @@
-# odTimeTracker Client written using PHP-GTK
+# odTimeTracker PHP-GTK
 
-[![License](https://img.shields.io/badge/license-MPL-blue.svg)](https://www.mozilla.org/MPL/2.0/)
+[![License](https://img.shields.io/badge/license-MPL-blue.svg)](https://www.mozilla.org/MPL/2.0/) [![License](https://img.shields.io/badge/license-MPL-blue.svg)](https://www.mozilla.org/MPL/2.0/)
 
 > __NOTE__: This application is in early development stage so is not usable yet!
 
@@ -43,7 +43,7 @@ Here is how it looks:
 ### ~1.0
 * [ ] starting/stopping activities
 * [ ] insert/remove/update projects
-* [ ] highlight currently running activity in `\odTimeTracker\Gtk\Ui\ProjectsTreeview.php`
+* [ ] add pagination to `\odTimeTracker\Gtk\Ui\ActivitiesTreeview`
 * [ ] refresh UI:
   * [ ] remove top panel and replace it by toolbar
   * [ ] enable refreshing dataviews by user request (via some button)
@@ -51,6 +51,9 @@ Here is how it looks:
 * [ ] __odTimeTracker PHP-GTK__ should supports these data sources:
   * [ ] SQLite/MySQL databases
   * [ ] remote datasource connected via JSON-RPC (`odtimetracker/http-json-rpc`)
+
+### 0.2.0
+* [x] highlight currently running activity in `\odTimeTracker\Gtk\Ui\ActivitiesTreeview`
 
 ### 0.1.0
 * Initial version
