@@ -10,7 +10,7 @@ Here you can see cleaned UI with tooltips added:
 
 And here is projects tab with opened _Edit project_ dialog:
 
-![odTimeTracker PHP-GTK 0.2.0 - Projects](screenshots/screen-03.png?raw=true "odTimeTracker PHP-GTK 0.2.0 - Projects")
+![odTimeTracker PHP-GTK 0.2.0 - Projects](screen-03.png?raw=true "odTimeTracker PHP-GTK 0.2.0 - Projects")
 
 ## odTimeTracker PHP-GTK 0.1.0
 
