@@ -99,11 +99,14 @@ class ActivitiesTreeview {
       $view->append_column($column);
     }
 
-    // setup selection
+    // set-up selection
     $selection = $view->get_selection();
     $selection->connect('changed', array($this, 'onSelect'));
-  } // end setup()
 
+    // set-up tooltip
+    $view->set_property('has-tooltip', true);
+    $view->connect('query-tooltip', array($this, 'onTooltip'));
+  } // end setup()
 
   /**
    * Updates treeview.
@@ -165,7 +168,7 @@ class ActivitiesTreeview {
     $activity_id = $model->get_value($iter, 0);
     $is_running = false;
 
-    if (array_key_exists($activity_id, $this->cache)) {
+    if (array_key_exists($row, $this->cache)) {
       $is_running = $this->cache[$activity_id]->isRunning();
     }
 
@@ -186,6 +189,11 @@ class ActivitiesTreeview {
    */
   function onSelect($selection) {
     list($model, $iter) = $selection->get_selected();
+
+    if (!($iter instanceof \GtkTreeIter)) {
+      return;
+    }
+
     $id = $model->get_value($iter, 0);
     $project = $model->get_value($iter, 1);
     $name = $model->get_value($iter, 2);
@@ -193,4 +201,50 @@ class ActivitiesTreeview {
 
     print "You have selected activity #$id $name of [$project] created on $created.\n";
   } // end onSelect($selection)
+
+  /**
+   * Handler for `query-tooltip` event.
+   *
+   * @param \GtkTreeView $widget
+   * @param integer $x
+   * @param integer $y
+   * @param mixed $keyboard_mode
+   * @param \GtkTooltip $tooltip
+   * @return void
+   */
+  public function onTooltip($widget, $x, $y, $keyboard_mode, $tooltip) {
+    $path = $widget->get_path_at_pos($x, $y);
+    if (is_null($path)) {
+      return false;
+    }
+
+    $col_title = $path[1]->get_title();
+    $path2 = $path[0][0] - 1;
+
+    $model = $widget->get_model();
+    $iter = $model->get_iter($path[0][0]);
+    $activity_id = $model->get_value($iter, 0);
+    $activity = $this->cache[$activity_id];
+
+    if ($path2 < 0) {
+      return false;
+    }
+
+    $html = ''.
+      '<b>'.$activity->getName().'</b>'.PHP_EOL.PHP_EOL.
+      '<b>Project</b>: '.$activity->getProject()->getName().''.PHP_EOL.
+      '<b>Tags</b>: '.$activity->getTags().''.PHP_EOL.
+      '<b>Started</b>: '.$activity->getStartedFormatted().''.PHP_EOL.
+      '<b>Stopped</b>: '.$activity->getStoppedFormatted().''.PHP_EOL.
+      '<b>Duration</b>: '.$activity->getDurationFormatted().'';
+
+    if (!empty($activity->getDescription())) {
+      $html .= PHP_EOL.PHP_EOL.strip_tags($activity->getDescription());
+    }
+
+    $widget->set_tooltip_cell($tooltip, $path2, $path[1], null);
+    $tooltip->set_markup($html);
+
+    return true;
+  } // end onTooltip($widget, $x, $y, $keybord_mode, $tooltip)
 } // End ActivitiesTreeview
